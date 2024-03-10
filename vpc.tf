@@ -74,6 +74,13 @@ resource "aws_security_group" "backend" {
     cidr_blocks = ["0.0.0.0/0"] # Allow SSH from anywhere
   }
 
+  ingress {
+    from_port   = 9000
+    to_port     = 9000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Allow SSH from anywhere
+  }  
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -91,6 +98,20 @@ resource "aws_security_group" "frontend" {
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] # Allow HTTP from anywhere 
+  }
+
+  ingress {
+    from_port   = 3001
+    to_port     = 3001
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Allow port for docker container
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Allow SSH from anywhere
   }
 
   egress {
